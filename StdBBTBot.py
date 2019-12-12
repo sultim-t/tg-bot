@@ -4,8 +4,6 @@ import wave
 import os
 from pathlib import Path
 import random
-import pydub
-from pydub import AudioSegment
 
 MAIN_BUTTON_CALLBACK_DATA = 'get_audio_bm'
 CURRENTDIR = Path(__file__).parent.absolute()
@@ -88,7 +86,6 @@ class TelegramBot:
 # returns name
 def generateAudio(chatId, sentence) :
     outfileNameWav = str(CURRENTDIR / ('sounds' + str(chatId) + '.wav'))
-    outfileNameMp3 = str(CURRENTDIR / ('sounds' + str(chatId) + '.mp3'))
 
     data = []
     for wName in sentence:
@@ -104,12 +101,7 @@ def generateAudio(chatId, sentence) :
 
     output.close()
 
-
-    INWAV = AudioSegment.from_wav(outfileNameWav)
-    INWAV.export(outfileNameMp3, 'mp3')
-
-    os.remove(outfileNameWav)
-    return outfileNameMp3
+    return outfileNameWav
 
 
 def sendRandomAudio(bot, chatId, sentences):
